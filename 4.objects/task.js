@@ -13,21 +13,19 @@ Student.prototype.setSubject = function (subjectName) {
 }
 
 Student.prototype.addMarks = function (...marks) { 
-  if (this.marks) {
+  if (!this.marks) {
+    return;
+  }
     this.marks.push(...marks);
   }
-  }
+  
 
 Student.prototype.getAverage = function () {
- if ('marks' in Student && this.marks.length != 0 ) {
-	let sum = 0;
-  for (let i = 0; i < this.marks.length; i++) {
-    sum += this.marks[i];
-  }
-	return sum / this.marks.length;
-} else {
-	return 0;
-}
+ if (!this.marks || !this.marks.length) {
+  return 0;
+ }
+	let sum = this.marks.reduce ((acc, curr) => acc + curr);
+  return sum / this.marks.length;
 }
 
 Student.prototype.exclude = function (reason) {
